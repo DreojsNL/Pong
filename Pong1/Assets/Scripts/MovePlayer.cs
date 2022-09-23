@@ -3,15 +3,10 @@ using UnityEngine;
 
 public class MovePlayer : MonoBehaviour
 {
-    private float MoveSpeed;
-
-
-    public void Start ()
-    {
-        MoveSpeed = 15;
-    }
+    public float MoveSpeed;
     public int playerNumber = 1;
     public Rigidbody2D rb;
+    
 
     void Update()
    

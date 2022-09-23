@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoveBall : MonoBehaviour
@@ -16,3 +17,4 @@ public class MoveBall : MonoBehaviour
         rb.AddForce(Vector2.up * 200);
     }
 }
+
