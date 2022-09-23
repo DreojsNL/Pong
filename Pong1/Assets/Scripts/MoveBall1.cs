@@ -6,9 +6,12 @@ public class MoveBall1 : MonoBehaviour
 {
     private Vector3 direction;
     public float MoveSpeed;
+    public TrailRenderer LSD;
 
      void Start()
     {
+
+        LSD.enabled = true;
         direction = new Vector3(Random.Range(-1f, 0.5f), Random.Range(-1f, 0.5f));
         direction = direction.normalized;
     }
@@ -21,9 +24,9 @@ public class MoveBall1 : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Wall"))
         {
-            if (MoveSpeed >= 30)
+            if (MoveSpeed < 50)
             {
-                MoveSpeed += 1;
+                MoveSpeed += 2;
             }
        
             direction = Vector3.Reflect(direction, collision.contacts[0].normal);
@@ -31,9 +34,9 @@ public class MoveBall1 : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Paddle"))
         {
-            if (MoveSpeed >= 30)
+            if (MoveSpeed < 50)
             {
-                MoveSpeed += 1;
+                MoveSpeed += 2;
             }
             direction = Vector3.Reflect(direction, collision.contacts[0].normal);
         }
@@ -43,20 +46,30 @@ public class MoveBall1 : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("BorderLeft"))
         {
-            ResetBall();
+           // ResetBall();
+            LSD.enabled = false;
             GameObject.Find("Canvas").GetComponent<Score>().AddP2Score();
+            Invoke("ResetBall", 0.2f);
+            
         }
         if (collision.gameObject.CompareTag("BorderRight"))
         {
-            ResetBall();
+          //  ResetBall();
+            LSD.enabled = false;
             GameObject.Find("Canvas").GetComponent<Score>().AddP1Score();
+            Invoke("ResetBall", 0.2f);
         }
     }
-    private void ResetBall()
-    {
+    public void ResetBall()
+    
+    { 
         MoveSpeed = 10f;
         transform.position = new Vector3(0, 0, 0);
         direction = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
         direction = direction.normalized;
+
+        LSD.enabled = true;
+
+
     }
 }
